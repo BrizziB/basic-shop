@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="layout/template.xhtml">
+	<ui:define name="body">
+		<h2>Our products, for you to purchase</h2>
+		
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Price</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<ui:repeat var="product" value="#{productListController.products}">
+					<tr>
+						<td>#{product.productName}</td>
+						<td>#{product.description}</td>
+						<td>#{product.price}</td>
+						<td>
+							<h:link styleClass="button button-outline" outcome="#" value="Add to Cart">
+								<f:param name="id" value="#{product.id}"></f:param>
+							</h:link>
+						</td>
+					</tr>
+				</ui:repeat>
+			</tbody>
+		</table>
+		
+		
+	</ui:define>
+</ui:composition>
+
+</html>
