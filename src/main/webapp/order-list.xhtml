@@ -25,11 +25,14 @@
 						<td>#{product.price}</td>
 						<h:form>
 						<td>
-							<h:commandButton action="#orderController.removeProductFromOrder(product.id)}" value="Remove from Order"></h:commandButton>
+							<h:commandButton action="#{orderController.removeProductFromOrder(product.id)}" value="Remove from Order"></h:commandButton>
 						</td>
 						</h:form>
 					</tr>
 				</ui:repeat>
+					<h:form>
+						<h:commandButton action="#{orderController.completeOrder()}" value="Buy All !!"></h:commandButton>
+					</h:form>
 			</tbody>
 		</table>
 		

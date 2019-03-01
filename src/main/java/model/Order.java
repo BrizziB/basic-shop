@@ -54,6 +54,10 @@ public class Order extends BaseEntity{
 	public void setItems(Collection<Product> items) {
 		this.items =  items;
 	}
+	
+	public void completeOrder() {
+		this.items = new ArrayList<Product>();
+	}
 
 	public Date getCreationDate() {
 		return creationDate;
