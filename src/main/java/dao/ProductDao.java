@@ -20,7 +20,6 @@ public class ProductDao {
 	
 	@Transactional
 	public void addProduct(Product newProduct){
-
 		em.persist(newProduct);
 		
 	}

@@ -1,18 +1,16 @@
 package bean.startup;
 
-import java.util.Date;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
-import org.apache.commons.lang3.time.DateUtils;
-
-import dao.UserDao;
+import dao.OrderDao;
 import dao.ProductDao;
+import dao.UserDao;
 import model.ModelFactory;
+import model.Order;
 import model.Product;
 import model.User;
 
@@ -25,15 +23,21 @@ public class StartupBean {
 	
 	@Inject
 	private ProductDao productDao;
+	
+	@Inject 
+	private OrderDao orderDao;
 
 	
 	@PostConstruct
 	@Transactional
 	public void init(){
+		orderDao.deleteOrders();
 		userDao.deleteUsers();
 		productDao.deleteProducts();
 		
-		User user1 = createUser("user1@example.com", "pass1");
+		
+		System.out.println("inizializzo tutto eh! ");
+		User user1 = createUser("asd", "asd");
 		User user2 = createUser("user2@example.com", "pass2");
 		
 		userDao.save(user1);
@@ -50,21 +54,33 @@ public class StartupBean {
 			);
 		productDao.save( createProduct(
 				"Bike", 
-				"Fastest bike you will ever see", 
+				"The fastest bike you will ever see", 
 				189.99)
 			);
 		productDao.save( createProduct(
 				"Good boy", 
-				"a very good boy, easily scared by nope ropes - unlimited borks included", 
+				"A very good boy, easily scared by nope ropes - unlimited borks included", 
 				99.99)
 			);
 		productDao.save( createProduct(
 				"Pencil", 
-				"great to write and draw, you should try this", 
+				"Great to write and draw, you should try this", 
 				0.99)
 			);		
+		
+		Order order1 = createOrder(user1);
+		Order order2 = createOrder(user2);
+		
+		orderDao.addOrder(order1);	
+		orderDao.addOrder(order2);
+		
 	}
-
+	
+	private Order createOrder(User buyer) {
+		Order order = ModelFactory.initializeOrder();
+		order.setBuyer(buyer);
+		return order;
+	}
 
 	private User createUser(String email, String password) {
 		User user = ModelFactory.initializeUser();

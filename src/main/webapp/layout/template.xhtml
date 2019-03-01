@@ -19,8 +19,10 @@
 		
 		<h:panelGroup rendered="#{userSessionBean.isLoggedIn()}">
 			<h:form class="float-right">
-				<h:commandButton action="#{userLoginController.logout()}" value="Logout"></h:commandButton>
+				<h:button value="Your Order" outcome="order-list" />
+				<h:commandButton action="#{userLoginController.logout()}" style="margin-left: 20px;" value="Logout" ></h:commandButton>
 			</h:form>
+			
 			<ui:insert name="body" />
 		</h:panelGroup>
 	

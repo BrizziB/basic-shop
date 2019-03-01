@@ -6,27 +6,26 @@
 
 <ui:composition template="layout/template.xhtml">
 	<ui:define name="body">
-		<h2>Our products, for you to purchase</h2>
+		<h2>The products you are buying</h2>
+		
 		<table>
 			<thead>
-			
 				<tr>
 					<th>Name</th>
-					<th>ID</th>
+					<th>Description</th>
 					<th>Price</th>
-					<th>Action</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
-				<ui:repeat var="product" value="#{productListController.getProducts()}">
+				<ui:repeat var="product" value="#{orderController.retrieveOrderProducts()}">
 					<tr>
 						<td>#{product.productName}</td>
-						<td>#{product.id}</td>
+						<td>#{product.description}</td>
 						<td>#{product.price}</td>
 						<h:form>
 						<td>
-							<h:commandButton styleClass="button-primary" action="#{orderController.addProductToOrder(product.id)}" 
-							value="Add to Order"></h:commandButton>
+							<h:commandButton action="#orderController.removeProductFromOrder(product.id)}" value="Remove from Order"></h:commandButton>
 						</td>
 						</h:form>
 					</tr>

@@ -22,7 +22,8 @@ public class OrderDao {
 	}
 	
 	@Transactional
-	public void updateOrder(Order o, long ID){
+	public void updateOrder(Order o){
+		long ID = o.getId();
 		Order oldOrder = em.find(Order.class, ID);
 		oldOrder.copyOrder(o);
 	}
@@ -37,13 +38,26 @@ public class OrderDao {
 		}
 		return tmp;
 	}
+	
+	@Transactional
+	public void deleteOrders(){
+		try{
+			Query query = em.createQuery(
+				"DELETE FROM Order");
+			query.executeUpdate();
+			
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+	}	
+	
 	@Transactional
 	public int deleteOrderByID(long ID){
 		int numDeleted = 0;
 		try{
 //			em.joinTransaction();
 			Query query = em.createQuery(
-				"DELETE FROM Order o WHERE o.orderID = :id")
+				"DELETE FROM Order o WHERE o.id = :id")
 				.setParameter("id", ID);
 			numDeleted = query.executeUpdate();
 		} catch (Exception e){
@@ -52,17 +66,18 @@ public class OrderDao {
 		return numDeleted;
 	}	
 	@Transactional
-	public int deleteOrdersByUserID(long ID){
-		int numDeleted = 0;		
+	public Order retrieveOrderByUserID(long ID){
+		Order retrievedOrder = null;		
 		try{
-			Query query = em.createQuery(
-				"DELETE FROM Order o WHERE o.buyer.userID = :id")
+			TypedQuery<Order> query = em.createQuery(
+				"from Order o WHERE o.buyer.id = :id"
+				,Order.class)
 				.setParameter("id", ID);
-			numDeleted = query.executeUpdate();
+			retrievedOrder = query.getSingleResult();
 		} catch (Exception e){
 			e.printStackTrace();
 		}
-		return numDeleted;
+		return retrievedOrder;
 	}
 
 

@@ -14,4 +14,8 @@ public class ModelFactory {
 	public static Product initializeProduct() {
 		return new Product(UUID.randomUUID().toString());
 	}
+	
+	public static Order initializeOrder() {
+		return new Order(UUID.randomUUID().toString());
+	}
 }

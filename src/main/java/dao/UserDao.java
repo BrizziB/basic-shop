@@ -16,6 +16,7 @@ public class UserDao {
 	@PersistenceContext
 	private EntityManager em;
 	
+	@Transactional
 	public void save(User user) {
 		em.persist(user);
 	}

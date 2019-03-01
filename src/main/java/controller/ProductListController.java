@@ -27,4 +27,7 @@ public class ProductListController {
 		return products;
 	}
 	
+	public void test() {
+		System.out.println("prova");
+	}
 }

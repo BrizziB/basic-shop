@@ -8,18 +8,17 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="Orders")
+@Table(name="orders")
 public class Order extends BaseEntity{
 	
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.EAGER)
 	private User buyer;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -28,9 +27,16 @@ public class Order extends BaseEntity{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
 	
+	Order(){
+		
+	}
+	
+	public Order(String uuid) {
+		super(uuid);
+	}
+	
 	public void copyOrder(Order otherOrder){
-		this.buyer = otherOrder.getBuyer();
-		this.items =  otherOrder.getItem();
+		this.items =  otherOrder.getItems();
 	}
 
 	public User getBuyer() {
@@ -41,11 +47,11 @@ public class Order extends BaseEntity{
 		this.buyer = buyer;
 	}
 
-	public Collection<Product> getItem() {
+	public Collection<Product> getItems() {
 		return items;
 	}
 
-	public void setItem(ArrayList<Product> items) {
+	public void setItems(Collection<Product> items) {
 		this.items =  items;
 	}
 
