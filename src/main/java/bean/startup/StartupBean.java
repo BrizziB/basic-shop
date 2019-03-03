@@ -58,8 +58,8 @@ public class StartupBean {
 				189.99)
 			);
 		productDao.save( createProduct(
-				"Good boy", 
-				"A very good boy, easily scared by nope ropes - unlimited borks included", 
+				"Good boi", 
+				"A very good boi, easily scared by nope ropes - unlimited borks included", 
 				99.99)
 			);
 		productDao.save( createProduct(

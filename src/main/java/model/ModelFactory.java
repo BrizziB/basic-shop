@@ -11,6 +11,10 @@ public class ModelFactory {
 		return new User(UUID.randomUUID().toString());
 	}
 	
+	public static User getOldUser() {
+		return new User();
+	}
+	
 	public static Product initializeProduct() {
 		return new Product(UUID.randomUUID().toString());
 	}

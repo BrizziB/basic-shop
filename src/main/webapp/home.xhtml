@@ -26,14 +26,17 @@
 						<h:form>
 						<td>
 							<h:commandButton styleClass="button-primary" action="#{orderController.addProductToOrder(product.id)}" 
-							value="Add to Order"></h:commandButton>
+							value="Add to Order">
+							</h:commandButton>
 						</td>
 						</h:form>
 					</tr>
 				</ui:repeat>
 			</tbody>
 		</table>
-		
+		<h:form>
+			<h:link styleClass="button button-primary" outcome="details-form-first" value="Share your details"> </h:link>
+		</h:form>
 		
 	</ui:define>
 </ui:composition>

@@ -12,6 +12,7 @@ public class UserSessionBean implements Serializable {
 	
 	private Long userId;
 	
+
 	public Long getUserId() {
 		return userId;
 	}
@@ -22,4 +23,5 @@ public class UserSessionBean implements Serializable {
 	public boolean isLoggedIn() {
 		return userId != null;
 	}
+
 }

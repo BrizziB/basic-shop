@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -15,6 +17,108 @@ public class User extends BaseEntity {
 	@Expose
 	private String password;
 	
+	@Expose
+	private String firstname;
+	
+	@Expose
+	private String secondname;
+	
+	@Expose
+	private String age;
+	
+	@Expose
+	private String country;
+	
+	@Expose
+	private String city;
+	
+	@Expose
+	private String address;
+	
+	@Expose
+	private String mainHobby;
+	
+	@Expose
+	private String job;
+	
+	@Expose
+	private String favTvShow;
+	
+
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getSecondname() {
+		return secondname;
+	}
+
+	public void setSecondname(String secondname) {
+		this.secondname = secondname;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
+	public String getMainHobby() {
+		return mainHobby;
+	}
+
+	public void setMainHobby(String mainHobby) {
+		this.mainHobby = mainHobby;
+	}
+
+	public String getJob() {
+		return job;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
+	}
+
+	public String getFavTvShow() {
+		return favTvShow;
+	}
+
+	public void setFavTvShow(String favTvShow) {
+		this.favTvShow = favTvShow;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	User(){
 	}
 	
