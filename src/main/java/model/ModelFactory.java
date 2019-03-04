@@ -11,7 +11,7 @@ public class ModelFactory {
 		return new User(UUID.randomUUID().toString());
 	}
 	
-	public static User getOldUser() {
+	public static User getMockUser() {
 		return new User();
 	}
 	

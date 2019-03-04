@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,10 +9,12 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
-
+import model.Order;
 import model.User;
 
-public class UserDao {
+public class UserDao implements Serializable{
+	
+	private static final long serialVersionUID = 12876491L;
 
 	@PersistenceContext
 	private EntityManager em;
@@ -42,6 +45,12 @@ public class UserDao {
 			e.printStackTrace();
 		}
 	}	
+	
+	@Transactional
+	public void updateUser(long oldUserID, User newUser){
+		User oldUser = em.find(User.class, oldUserID);
+		oldUser.mergeUser(newUser);
+	}
 	
 	public User login(User user) {
 		List<User> result = em

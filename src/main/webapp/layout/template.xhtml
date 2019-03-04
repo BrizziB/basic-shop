@@ -19,8 +19,8 @@
 		
 		<h:panelGroup rendered="#{userSessionBean.isLoggedIn()}">
 			<h:form class="float-right">
-				<h:button value="Your Order" outcome="order-list" />
-				<h:button value="The Shop" outcome="home" />
+				<h:button styleClass="button button-primary" value="Your Order" outcome="order-list" />
+				<h:button styleClass="button button-outline" value="The Shop" outcome="home" />
 				<h:commandButton action="#{userLoginController.logout()}" style="margin-left: 20px;" value="Logout" ></h:commandButton>
 			</h:form>
 			

@@ -140,4 +140,17 @@ public class User extends BaseEntity {
 		this.password = password;
 	}
 	
+	public void mergeUser(User user) {
+		country = user.country;
+		address = user.address;
+		city = user.city;
+		address = user.address;
+		age = user.age;
+		firstname = user.firstname;
+		secondname = user.secondname;
+		mainHobby = user.mainHobby;
+		job = user.job;
+		favTvShow = user.favTvShow;
+	}
+	
 }

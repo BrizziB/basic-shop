@@ -36,8 +36,8 @@ public class StartupBean {
 		productDao.deleteProducts();
 		
 		
-		System.out.println("inizializzo tutto eh! ");
-		User user1 = createUser("asd", "asd");
+		System.out.println("initializing database.. ");
+		User user1 = createUser("user1@example.com", "pass1");
 		User user2 = createUser("user2@example.com", "pass2");
 		
 		userDao.save(user1);
