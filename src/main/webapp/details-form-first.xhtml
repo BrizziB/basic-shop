@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<ui:composition template="layout/template.xhtml">
+		<ui:define name="body">	
+			<h2>Insert your Personal Information</h2>
+			<h4>All the information inserted are sold to Facebook</h4>
+			<h:form>
+				<fieldset>
+					<label for="name">Your first Name</label> 
+					<h:inputText id="name" value="#{userDetails.userData.firstname}"></h:inputText>
+					<label for="surname">Your second Name</label> 
+					<h:inputText id="surname" value="#{userDetails.userData.secondname}"></h:inputText>
+					<label for="age">Insert Your Age</label> 
+					<h:inputText id="age" value="#{userDetails.userData.age}"></h:inputText>
+					
+		 			<h:link styleClass="button button-outline" outcome="home" value="Back to Home"> </h:link>
+		 			<h:commandButton styleClass="button-primary" 
+ 						action="#{userDetails.savePersonalInfo()}" value="Next Page">
+ 					</h:commandButton>
+				</fieldset>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+
+</html>
+
+

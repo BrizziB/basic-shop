@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<ui:composition template="layout/template.xhtml">
+		<ui:define name="body">	
+			<h2>A Resume of your personal information</h2>
+
+			<h:form>
+				<fieldset>
+					<label for="name">Your first Name:</label> 
+					<h:outputText id="name" value="#{userDetailsController.userData.firstname}"></h:outputText>
+					<label for="surname">Your second Name:</label> 
+					<h:outputText id="surname" value="#{userDetailsController.userData.secondname}"></h:outputText>
+					<label for="age">Your Age:</label> 
+					<h:outputText id="age" value="#{userDetailsController.userData.age}"></h:outputText>
+					
+					<label for="country">Your Home Country:</label> 
+					<h:outputText id="country" value="#{userDetailsController.userData.country}"></h:outputText>
+					<label for="city">The City you live in:</label> 
+					<h:outputText id="city" value="#{userDetailsController.userData.city}"></h:outputText>
+					<label for="address">Your home address:</label> 
+					<h:outputText id="address" value="#{userDetailsController.userData.address}"></h:outputText>
+					
+					<label for="job">Your Job:</label> 
+					<h:outputText id="job" value="#{userDetailsController.userData.job}"></h:outputText>
+					<label for="hobby">Your Hobby:</label> 
+					<h:outputText id="hobby" value="#{userDetailsController.userData.mainHobby}"></h:outputText>
+					<label for="favTvShow">Your favorite TV show:</label> 
+					<h:outputText id="favTvShow" value="#{userDetailsController.userData.favTvShow}"></h:outputText>
+
+				</fieldset>
+				<h:link styleClass="button button-primary" outcome="home" value="Back to Home"> </h:link>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+
+</html>
+
+
