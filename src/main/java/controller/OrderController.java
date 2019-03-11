@@ -23,14 +23,13 @@ public class OrderController {
 	
 	@Inject
 	private UserSessionBean loggedUser;
-	
-	private List<Product> products = new ArrayList<Product>();
+
 	
 	public List<Product> retrieveOrderProducts() {
 		ArrayList<Product> prods = new ArrayList<>();
 		prods.addAll(orderDao.retrieveOrderByUserID(loggedUser.getUserId()).getItems() );
 		System.out.println("retrieving Order of user: " + loggedUser.getUserId());
-		products = prods;
+		List<Product> products = prods;
 				
 		return products;
 	}
@@ -38,7 +37,7 @@ public class OrderController {
 	public boolean removeProductFromOrder(Long productID) {
 		System.out.println("Deleting product with id: " + productID);
 		Order currentOrder = orderDao.retrieveOrderByUserID(loggedUser.getUserId());
-		products = (List<Product>) currentOrder.getItems();
+		List<Product> products = (List<Product>) currentOrder.getItems();
 		if(! products.isEmpty()) {
 			Product prod = products.stream().filter(product -> product.getId().equals(productID))
 					.findFirst()
@@ -59,7 +58,7 @@ public class OrderController {
 				.filter(product -> product.getId().equals(productID))
 				.findFirst()
 				.orElse(null);
-		products = retrieveOrderProducts();
+		List<Product> products = retrieveOrderProducts();
 		products.add(prod);
 		Order currentOrder = orderDao.retrieveOrderByUserID(loggedUser.getUserId());
 		currentOrder.setItems(products);
