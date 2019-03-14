@@ -31,6 +31,7 @@ public class RestUserLoginController {
 			throw new RuntimeException("User with email \"" + getUserData().getEmail() + "\" not found");
 		}
 		userSession.setUserId(loggedUser.getId()); // mantiene uno stato tramite il bean userSession
+		System.out.println("user session: " + userSession.getUserId() );
 		return loggedUser.getId();
 	}
 	
@@ -45,6 +46,8 @@ public class RestUserLoginController {
 	
 	
 	public Boolean logout() {
+		userSession.setUserId(null);
+		System.out.println("user logging out");
 		return true;
 	}
 	

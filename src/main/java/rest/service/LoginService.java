@@ -2,6 +2,7 @@ package rest.service;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -10,11 +11,10 @@ import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
 
-import bean.UserSessionBean;
 import model.User;
 import rest.controller.RestUserLoginController;
 
-@Path("login")
+@Path("log")
 public class LoginService {
 	
 	@Inject 
@@ -22,6 +22,7 @@ public class LoginService {
 
 	
 	@POST
+	@Path("/in")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces( { "application/json", "text/plain" } )
 	public Response loginUser(String requestBody) throws Exception{
@@ -32,6 +33,19 @@ public class LoginService {
 			return resp;
 		}catch(Exception e) {
 			
+			return Response.notAcceptable(null).build();
+		}
+	}
+	
+	@DELETE
+	@Path("/out")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces( { "application/json", "text/plain" } )
+	public Response logout() throws Exception{
+		try {
+			Response resp = Response.ok(restUserLoginController.logout(), MediaType.APPLICATION_JSON).build();
+			return resp;
+		}catch(Exception e) {
 			return Response.notAcceptable(null).build();
 		}
 	}
