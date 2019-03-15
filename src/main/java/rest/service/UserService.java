@@ -59,9 +59,35 @@ public class UserService {
 	
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/info-conversation/data")
+	@Path("/get")
 	@Produces( { "application/json", "text/plain" } )
 	public Response getUserDataStateful() throws Exception{
+		Gson gson = new Gson();
+		try {
+			Response resp;
+			User user;
+			user = userDao.findById(loggedUser.getUserId());
+			resp = Response.ok(gson.toJson(user), MediaType.APPLICATION_JSON).build();
+			return resp;
+		}catch(Exception e) {
+			
+			return Response.notAcceptable(null).build();
+		}
+	}
+	
+	/*                                    --- --- ---  
+	 * Da qui ci sono servizi per la conversazione, che richiamano istanze di UserConversationBean
+	 * Forse si potrebbe fare una classe apparte, anche se alla fine sono tutti servizi inerenti lo User
+	 *                                    --- --- ---  
+	 */
+	
+	
+	
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/info-conversation/data")
+	@Produces( { "application/json", "text/plain" } )
+	public Response getUserConversationDataStateful() throws Exception{
 		Gson gson = new Gson();
 		try {
 			Response resp;
@@ -121,24 +147,22 @@ public class UserService {
 	@Path("/info-conversation/start")
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response startInfoConversationStateful() { // inizia la nuova conversazione e ritorna il cid relativo
-//		if(loggedUser.getUserId()== null) {
-//			return Response.noContent().build();
-//		}
-		try {
-			String cid = userDetails.initConversation();
-			return Response.ok(cid, MediaType.APPLICATION_JSON).build();			
-		}catch(Exception e) {
-			return Response.notAcceptable(null).build();
-		}
+		if(loggedUser.isLoggedIn()) {
+			try {
+				String cid = userDetails.initConversation();
+				return Response.ok(cid, MediaType.APPLICATION_JSON).build();			
+			}catch(Exception e) {
+				return Response.notAcceptable(null).build();
+			}
+		} else return Response.noContent().build();
+
 	}
 
 	@GET
 	@Path("/info-conversation/start/{userID}")
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response startInfoConversationStateless(@PathParam("userID") Long userID) { // inizia la nuova conversazione e ritorna il cid relativo
-//		if(userID == null) {
-//			return Response.noContent().build();
-//		}
+
 		try {
 			String cid = userDetails.initConversation();
 			return Response.ok(cid, MediaType.APPLICATION_JSON).build();			

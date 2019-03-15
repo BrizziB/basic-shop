@@ -20,7 +20,7 @@ public class UserDetailsInsertionBean implements Serializable{
 	
 	private UUID uuid = UUID.randomUUID();
 	
-	private User userData = ModelFactory.getMockUser();
+	private User userData;
 	
 	@Inject
 	private UserSessionBean userSession;
