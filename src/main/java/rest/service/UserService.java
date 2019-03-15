@@ -18,21 +18,19 @@ import bean.UserSessionBean;
 import dao.UserDao;
 import model.User;
 import rest.bean.UserConversationBean;
+import rest.controller.RestUserController;
 import rest.controller.RestUserConversationController;
 
 
 @Path("user")
 public class UserService {
-	
+		
 	@Inject
-	private UserSessionBean loggedUser;
-	
-	@Inject
-	private UserDao userDao;
+	private RestUserController userController;
 
-	
 	@Inject
-	private UserConversationBean userDetails;
+	private RestUserConversationController conversationController;
+
 	
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -44,13 +42,8 @@ public class UserService {
 	public Response checkAuth() throws Exception{
 		Gson gson = new Gson();
 		try {
-			Response resp;
-			if(loggedUser.isLoggedIn()) {
-				resp = Response.ok(gson.toJson(loggedUser.getUserId()), MediaType.APPLICATION_JSON).build();
-			} else {
-				resp = Response.ok(gson.toJson(null), MediaType.APPLICATION_JSON).build();
-			}
-			return resp;
+			Long userID = userController.checkAuth();
+			return Response.ok(gson.toJson(userID), MediaType.APPLICATION_JSON).build();
 		}catch(Exception e) {
 			
 			return Response.notAcceptable(null).build();
@@ -64,11 +57,24 @@ public class UserService {
 	public Response getUserDataStateful() throws Exception{
 		Gson gson = new Gson();
 		try {
-			Response resp;
-			User user;
-			user = userDao.findById(loggedUser.getUserId());
-			resp = Response.ok(gson.toJson(user), MediaType.APPLICATION_JSON).build();
-			return resp;
+			User user = userController.getLoggedUser();
+			return Response.ok(gson.toJson(user), MediaType.APPLICATION_JSON).build();
+		}catch(Exception e) {
+			
+			return Response.notAcceptable(null).build();
+		}
+	}
+	
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/get/{userID}")
+	@Produces( { "application/json", "text/plain" } )
+	public Response getUserDataStateless(@PathParam("userID") Long userID) throws Exception{
+
+		Gson gson = new Gson();
+		try {
+			User user = userController.getLoggedUser(userID);
+			return Response.ok(gson.toJson(user), MediaType.APPLICATION_JSON).build();
 		}catch(Exception e) {
 			
 			return Response.notAcceptable(null).build();
@@ -76,7 +82,7 @@ public class UserService {
 	}
 	
 	/*                                    --- --- ---  
-	 * Da qui ci sono servizi per la conversazione, che richiamano istanze di UserConversationBean
+	 * Da qui ci sono servizi per la conversazione, che usano RestUserConversationController
 	 * Forse si potrebbe fare una classe apparte, anche se alla fine sono tutti servizi inerenti lo User
 	 *                                    --- --- ---  
 	 */
@@ -91,15 +97,9 @@ public class UserService {
 		Gson gson = new Gson();
 		try {
 			Response resp;
-			User user;
+			User user;			
 			System.out.println("rispondo a richiesta di getUserData");
-			if(userDetails.getUserData() != null) {
-				user = userDetails.getUserData();
-				
-			}
-			else {
-				user = userDao.findById(loggedUser.getUserId());
-			}
+			user = conversationController.getUser();
 			resp = Response.ok(gson.toJson(user), MediaType.APPLICATION_JSON).build();
 			return resp;
 		}catch(Exception e) {
@@ -107,37 +107,13 @@ public class UserService {
 			return Response.notAcceptable(null).build();
 		}
 	}
-	
-	@GET
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/info-conversation/data/{userID}")
-	@Produces( { "application/json", "text/plain" } )
-	/* 
-	 * comunica a un eventuale client se la sua sessione è ancora attiva sul server, in tal caso invia nuovamente lo userID, altrimenti null
-	 * */
-	public Response getUserDataStateless(@PathParam("userID") Long userID) throws Exception{
-		//nel caso stateless non posso usare i bean di conversazione !
-		Gson gson = new Gson();
-		try {
-			Response resp;
-			User user = userDao.findById(userID);
-			resp = Response.ok(gson.toJson(user), MediaType.APPLICATION_JSON).build();
-			return resp;
-		}catch(Exception e) {
-			
-			return Response.notAcceptable(null).build();
-		}
-	}
-	
+		
 	@GET
 	@Path("/info-conversation/check")
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response checkConversationStatus() {
 		try {
-			if(userDetails.getCid() != null) {
-				return Response.ok(true, MediaType.APPLICATION_JSON).build();
-			}
-			return Response.ok(false, MediaType.APPLICATION_JSON).build();
+			return Response.ok(conversationController.checkConversation(), MediaType.APPLICATION_JSON).build();
 		}catch(Exception e) {
 			return Response.ok(false, MediaType.APPLICATION_JSON).build();
 		}	
@@ -147,52 +123,25 @@ public class UserService {
 	@Path("/info-conversation/start")
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response startInfoConversationStateful() { // inizia la nuova conversazione e ritorna il cid relativo
-		if(loggedUser.isLoggedIn()) {
-			try {
-				String cid = userDetails.initConversation();
-				return Response.ok(cid, MediaType.APPLICATION_JSON).build();			
-			}catch(Exception e) {
-				return Response.notAcceptable(null).build();
-			}
-		} else return Response.noContent().build();
-
-	}
-
-	@GET
-	@Path("/info-conversation/start/{userID}")
-	@Produces(MediaType.TEXT_PLAIN)
-	public Response startInfoConversationStateless(@PathParam("userID") Long userID) { // inizia la nuova conversazione e ritorna il cid relativo
-
 		try {
-			String cid = userDetails.initConversation();
+			String cid = conversationController.startConversation();
 			return Response.ok(cid, MediaType.APPLICATION_JSON).build();			
 		}catch(Exception e) {
 			return Response.notAcceptable(null).build();
 		}
+
 	}
-	
+
 	
 	@DELETE
     @Path("/info-conversation/end")
 	@Produces(MediaType.TEXT_PLAIN)
     public Response endConversationStateful() {
-		if(this.loggedUser.isLoggedIn()) {
-			this.userDetails.endConversation();
-			return Response.ok(true, MediaType.APPLICATION_JSON).build();	
-		}
-		return Response.ok(false, MediaType.APPLICATION_JSON).build();	
+		boolean end = conversationController.endConversation();
+		return Response.ok(end, MediaType.APPLICATION_JSON).build();	
+
 	}
 	
-	@DELETE
-    @Path("/info-conversation/end/{userID}")
-	@Produces(MediaType.TEXT_PLAIN)
-    public Response endConversationStateless(@PathParam("userID") Long userID) {
-		if(userID != null) {
-			this.userDetails.endConversation();
-			return Response.ok(true, MediaType.APPLICATION_JSON).build();	
-		}
-		return Response.ok(false, MediaType.APPLICATION_JSON).build();	
-	}
 	
 	@POST
 	@Path("/info-conversation/update")
@@ -202,7 +151,7 @@ public class UserService {
 		Gson gson = new Gson();
 		try {
 			
-			if(this.userDetails.setUserData(gson.fromJson(requestBody, User.class)) ) {
+			if(conversationController.updateStatus(gson.fromJson(requestBody, User.class)) ) {
 					return Response.ok(true).build();
 			}
 			else {

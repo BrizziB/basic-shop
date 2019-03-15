@@ -6,12 +6,16 @@ import javax.inject.Inject;
 
 import bean.UserSessionBean;
 import dao.ProductDao;
+import dao.UserDao;
 import model.Product;
 
 public class RestProductListController { // è identico a ProductListController
 	
 	@Inject
 	private ProductDao productDao;
+	
+	@Inject
+	private UserDao userDao;
 	
 	@Inject
 	private UserSessionBean loggedUser;
@@ -23,6 +27,16 @@ public class RestProductListController { // è identico a ProductListController
 			return null;
 		}
 		if(products == null) {
+			products = productDao.retrieveAllProducts();
+		}
+		return products;
+	}
+	
+	public List<Product> getProductsStateless(Long userID) {
+		if(userDao.findById(userID) == null) {
+			return null;
+		}
+		else{
 			products = productDao.retrieveAllProducts();
 		}
 		return products;

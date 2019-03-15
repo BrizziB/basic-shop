@@ -2,29 +2,98 @@ package rest.controller;
 
 import javax.inject.Inject;
 
-import bean.UserDetailsInsertionBean;
+import bean.UserSessionBean;
+import dao.UserDao;
 import model.User;
+import rest.bean.UserConversationBean;
 
 public class RestUserConversationController {
 	
 	@Inject
-	private UserDetailsInsertionBean userDetails;
+	private UserSessionBean loggedUser;
+	
+	@Inject
+	private UserConversationBean userDetails;
+	
+	@Inject
+	private UserDao userDao;
+	
 	
 	public String startConversation() {
-		return userDetails.startConversation();
+		if (loggedUser.isLoggedIn()) {
+			return userDetails.initConversation();
+		}
+		else return null;
 	}
+
 	
-	public void endConversation() {
-		userDetails.endConversation();
+	public boolean endConversation() {
+		if (loggedUser.isLoggedIn()) {
+			userDetails.endConversation();
+			return true;
+		}
+		else return false;
 	}
 	
 	public User getStatus() {
-		return userDetails.getUserData();
+		if (loggedUser.isLoggedIn()) {
+			return userDetails.getUserData();
+		}
+		return null;
 	}
 	
 	public boolean updateStatus(User updatedUser) {
-		userDetails.setUserData(updatedUser);
-		return true;
+		if (loggedUser.isLoggedIn()) {
+			userDetails.setUserData(updatedUser);
+			return true;
+		}
+		return false;		
 	}
+	
+	public User getUser() {
+		User user;
+		if(userDetails.getUserData() != null) {
+			user = userDetails.getUserData();
+			
+		}
+		else {
+			user = userDao.findById(loggedUser.getUserId());
+		}
+		return user;
+	}
+	
+	public boolean checkConversation() {
+		if(userDetails.getCid() != null) {
+			return true;
+		}
+		else return false;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

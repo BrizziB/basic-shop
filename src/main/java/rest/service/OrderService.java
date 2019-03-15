@@ -123,6 +123,21 @@ public class OrderService {
 		}
 	}
 	
+	@PUT 
+	@Path("/complete")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces( { "application/json", "text/plain" } )
+	public Response completeOrderStateful() throws Exception{
+		Gson gson = new Gson();
+		try {
+			Boolean resp = restOrderController.completeOrderStateful();
+			Response response = Response.ok(gson.toJson(resp), MediaType.APPLICATION_JSON).build();
+			return response;
+		}catch(Exception e) {
+			return Response.notAcceptable(null).build();
+		}
+	}
+	
 	@PUT // mi sembra adatto il Put perchè alla fine si modifica una risorsa già esistente, DELETE pareva troppo estremo
 	@Path("/complete/{userID}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -138,20 +153,7 @@ public class OrderService {
 		}
 	}
 	
-	@PUT 
-	@Path("/complete")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces( { "application/json", "text/plain" } )
-	public Response completeOrderStateful() throws Exception{
-		Gson gson = new Gson();
-		try {
-			Boolean resp = restOrderController.completeOrderStateful();
-			Response response = Response.ok(gson.toJson(resp), MediaType.APPLICATION_JSON).build();
-			return response;
-		}catch(Exception e) {
-			return Response.notAcceptable(null).build();
-		}
-	}
+
 	
 	
 }

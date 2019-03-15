@@ -51,6 +51,11 @@ public class RestUserLoginController {
 		return true;
 	}
 	
+	public Boolean logoutStateless(Long userID) { // praticamente non serve..
+		System.out.println("user logging out " + userID);
+		return true;
+	}
+	
 	public User getUserData() {
 		return userData;
 	}
