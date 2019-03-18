@@ -5,6 +5,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -13,11 +14,7 @@ import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
 
-import bean.UserDetailsInsertionBean;
-import bean.UserSessionBean;
-import dao.UserDao;
 import model.User;
-import rest.bean.UserConversationBean;
 import rest.controller.RestUserController;
 import rest.controller.RestUserConversationController;
 
@@ -81,9 +78,25 @@ public class UserService {
 		}
 	}
 	
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/update/{userID}")
+	@Produces( { "application/json", "text/plain" } )
+	public Response updateUserStateless(@PathParam("userID") Long userID, String requestBody) throws Exception{
+
+		Gson gson = new Gson();
+		try {
+			userController.updateUserData(userID, gson.fromJson(requestBody, User.class));
+			return Response.ok(true, MediaType.APPLICATION_JSON).build();
+		}catch(Exception e) {
+			
+			return Response.notAcceptable(null).build();
+		}
+	}
+	
 	/*                                    --- --- ---  
 	 * Da qui ci sono servizi per la conversazione, che usano RestUserConversationController
-	 * Forse si potrebbe fare una classe apparte, anche se alla fine sono tutti servizi inerenti lo User
+	 * Forse si potrebbe fare una classe a parte, anche se alla fine sono tutti servizi inerenti lo User
 	 *                                    --- --- ---  
 	 */
 	
@@ -143,7 +156,7 @@ public class UserService {
 	}
 	
 	
-	@POST
+	@POST // questo credo dovrebbe essere un PUT, TODO modificalo qui e sul client
 	@Path("/info-conversation/update")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
@@ -161,6 +174,8 @@ public class UserService {
 			return Response.notAcceptable(null).build();
 		}
 	}
+	
+
 	
 	
 	

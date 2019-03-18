@@ -24,7 +24,7 @@ public class OrderService {
 	@Inject
 	private RestOrderController restOrderController;
 	
-	// {userID}
+
 	@GET
 	@Path("/get")
 	@Consumes(MediaType.APPLICATION_JSON)

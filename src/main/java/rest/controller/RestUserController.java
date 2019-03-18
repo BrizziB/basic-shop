@@ -31,4 +31,8 @@ public class RestUserController {
 		return userDao.findById(userID);
 	}
 	
+	
+	public void updateUserData(Long userID, User newUser) {
+		userDao.updateUser(userID, newUser);
+	}
 }
