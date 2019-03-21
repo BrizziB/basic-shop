@@ -31,7 +31,7 @@ public class LoginService {
 	public Response loginUser(String requestBody) throws Exception{
 		Gson gson = new Gson();
 		try {
-			Long response = restUserLoginController.loginWithState(gson.fromJson(requestBody, User.class));	
+			Long response = restUserLoginController.login(gson.fromJson(requestBody, User.class));	
 			Response resp = Response.ok(gson.toJson(response), MediaType.APPLICATION_JSON).build();
 			return resp;
 		}catch(Exception e) {
@@ -64,7 +64,7 @@ public class LoginService {
 	public Response loginUserStateless(String requestBody) throws Exception{
 		Gson gson = new Gson();
 		try {
-			Long response = restUserLoginController.login(gson.fromJson(requestBody, User.class));	
+			Long response = restUserLoginController.loginStateless(gson.fromJson(requestBody, User.class));	
 			Response resp = Response.ok(gson.toJson(response), MediaType.APPLICATION_JSON).build();
 			return resp;
 		}catch(Exception e) {

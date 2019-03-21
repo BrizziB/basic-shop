@@ -25,7 +25,7 @@ public class RestUserLoginController {
 	}
 
 	
-	public Long loginWithState(User loggingUser) {
+	public Long login(User loggingUser) {
 		User loggedUser = userDao.login(loggingUser); 
 		if( loggedUser == null ) {
 			throw new RuntimeException("User with email \"" + getUserData().getEmail() + "\" not found");
@@ -35,7 +35,7 @@ public class RestUserLoginController {
 		return loggedUser.getId();
 	}
 	
-	public Long login(User loggingUser) {
+	public Long loginStateless(User loggingUser) {
 		User loggedUser = userDao.login(loggingUser);
 		if( loggedUser == null ) {
 			return null;

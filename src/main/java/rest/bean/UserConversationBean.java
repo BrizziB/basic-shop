@@ -15,6 +15,12 @@ import model.User;
 @ConversationScoped
 public class UserConversationBean implements Serializable{
 	
+	// questa classe è il bean conversation scoped che mantiene
+	// lo stato durante la conversazione http col client remoto
+	// nella fase di inserimento dati sulle pagine info-form remote
+	// a livello logico è equivalente ad UserDetailsInsertionBean, 
+	// il bean equivalente ma usato dalle pagine xhtml
+	
 	private static final long serialVersionUID = 39295900L;
 	
 	@Inject

@@ -16,6 +16,12 @@ import model.User;
 @Named(value = "userDetails")
 public class UserDetailsInsertionBean implements Serializable{
 	
+	// questa classe è il bean conversation scoped che mantiene lo stato durante la conversazione
+	// di inserimento informazioni sulle pagine info-form
+	// questo bean è fatto per essere usato dalle view xhtml
+	// a livello logico è equivalente ad UserConversationBean, 
+	// il bean equivalente ma esposto per le chiamate http
+	
 	private static final long serialVersionUID = 82485710L;
 	
 	private UUID uuid = UUID.randomUUID();
@@ -34,12 +40,17 @@ public class UserDetailsInsertionBean implements Serializable{
 	public Conversation getConversation() {
 		return conversation;
 	}
-	public void initConversation() {
+	
+	public String startConversation() {
 		if (conversation.isTransient()) {
-	            conversation.begin();
-	            System.out.println("conversazione iniziata");
-	        }
+            conversation.begin();
+            System.out.println("conversazione iniziata");
+    		userData = userDao.findById(userSession.getUserId());
+    		System.out.println("conversation started with: " + getID());
+        }
+		return "details-form-first?faces-redirect=true";
 	}
+
     public void endConversation(){
         if(!conversation.isTransient()){
             conversation.end();
@@ -57,12 +68,7 @@ public class UserDetailsInsertionBean implements Serializable{
 		this.userData = convUser;
 	}
 	
-	public String startConversation() {
-		initConversation();
-		userData = userDao.findById(userSession.getUserId());
-		System.out.println("conversation started with: " + getID());
-		return "details-form-first?faces-redirect=true";
-	}
+
 	
 	public String savePersonalInfo() {
 		return "details-form-second?faces-redirect=true";		

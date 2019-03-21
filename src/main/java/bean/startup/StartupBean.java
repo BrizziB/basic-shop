@@ -17,6 +17,8 @@ import model.User;
 @Singleton // è un singleton EJB
 @Startup
 public class StartupBean {
+	
+	// ripreso molto dallo startupBean di Note-App
 
 	@Inject
 	private UserDao userDao;
