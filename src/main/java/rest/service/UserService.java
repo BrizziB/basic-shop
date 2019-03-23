@@ -34,7 +34,7 @@ public class UserService {
 	@Path("/check-auth")
 	@Produces( { "application/json", "text/plain" } )
 	/* 
-	 * comunica a un eventuale client se la sua sessione è ancora attiva sul server, in tal caso invia nuovamente lo userID, altrimenti null
+	 * comunica al client se la sua sessione è ancora attiva sul server, in tal caso invia nuovamente lo userID, altrimenti null
 	 * */
 	public Response checkAuth() throws Exception{
 		Gson gson = new Gson();
