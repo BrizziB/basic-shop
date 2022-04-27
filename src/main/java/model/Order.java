@@ -18,10 +18,10 @@ import javax.persistence.TemporalType;
 public class Order extends BaseEntity{
 	
 	
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.EAGER) //attenzione ad EAGER, va bene in questi casi toy, altrimenti può creare problemi di prestazioni
 	private User buyer;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)//attenzione ad EAGER, va bene in questi casi toy, altrimenti può creare problemi di prestazioni
 	private Collection<Product> items;
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -29,6 +29,10 @@ public class Order extends BaseEntity{
 	
 	Order(){
 		
+	}
+
+	public boolean isOwner(Long id){
+		return id.equals(buyer.getId());
 	}
 	
 	public Order(String uuid) {

@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import model.Product;
 
 
 
-public class ProductDao {
+public class ProductDao{
 	
 	@PersistenceContext
 	private EntityManager em;
@@ -30,16 +31,17 @@ public class ProductDao {
 			TypedQuery<Product> query = em.createQuery("from Product ", Product.class);
 			tmp = query.getResultList();
 		} catch (Exception e){
-			e.printStackTrace();
+			// ... 
 		}
 		return tmp;
-	
 	}
-	
+	// ...
+
+
+
 	@Transactional
 	public void deleteProducts(){
-		try{
-			Query query = em.createQuery(
+		try{			Query query = em.createQuery(
 				"DELETE FROM Product");
 			query.executeUpdate();
 			

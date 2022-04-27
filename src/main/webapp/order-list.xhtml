@@ -31,7 +31,7 @@
 					</tr>
 				</ui:repeat>
 					<h:form>
-						<h:commandButton action="#{orderController.completeOrder()}" value="Buy All !!"></h:commandButton>
+						<h:commandButton action="#{orderController.completeOrder()}" value="Buy All !!" disabled="#{empty orderController.retrieveOrderProducts()}"></h:commandButton>
 					</h:form>
 			</tbody>
 		</table>

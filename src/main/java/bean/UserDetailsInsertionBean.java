@@ -14,13 +14,10 @@ import model.User;
 
 @ConversationScoped
 @Named(value = "userDetails")
+@Deprecated
 public class UserDetailsInsertionBean implements Serializable{
 	
-	// questa classe è il bean conversation scoped che mantiene lo stato durante la conversazione
-	// di inserimento informazioni sulle pagine info-form
-	// questo bean è fatto per essere usato dalle view xhtml
-	// a livello logico è equivalente ad UserConversationBean, 
-	// il bean equivalente ma esposto per le chiamate http
+	// molto meglio conservare direttamente la Conversation sul BackingBean per i details-form
 	
 	private static final long serialVersionUID = 82485710L;
 	

@@ -4,44 +4,51 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<ui:composition template="layout/template.xhtml">
-	<ui:define name="body">
-		<h2>Our products, for you to purchase</h2>
-		<table>
-			<thead>
-			
-				<tr>
-					<th>Name</th>
-					<th>Description</th>
-					<th>Price</th>
-					<th>Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				<ui:repeat var="product" value="#{productListController.getProducts()}">
+<ui:composition template="layout/template.xhtml"> <!--Esempio di libreria UI - lavora con la composizione delle interfacce-->
+	<ui:define name="body"> <!--definisco il componente ui che include questo container-->
+		<h2>Our new products, for you to purchase</h2>
+		<h:form>
+			<table>
+				<thead>
 					<tr>
-						<td>#{product.productName}</td>
-						<td>#{product.description}</td>
-						<td>#{product.price}</td>
-						<h:form>
-						<td>
-							<h:commandButton styleClass="button-primary" action="#{orderController.addProductToOrder(product.id)}" 
-							value="Add to Order">
-							</h:commandButton>
-						</td>
-						</h:form>
+						<th>Name</th>
+						<th>Description</th>
+						<th>Price</th>
+						<th>Action</th>
 					</tr>
-				</ui:repeat>
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					<ui:repeat var="product" value="#{productListController.getProducts()}"> <!--Esempio di libreria UI - sempre relativa a composizione-->
+						<tr>
+							<!--<h:form>-->
+							<td>#{product.productName}</td>
+							<td>#{product.description}
+								<h:outputLabel style="color: #9b4dca;" rendered="#{productListController.isProductJustBought(product.id)}"> Just  Added! </h:outputLabel>
+							</td>
+							<td>#{product.price}</td>
+							
+							<td>
+								<h:commandButton styleClass="button-primary"
+												 action="#{productListController.addProductToOrder(product.id)}"
+												 value="Add to Order">
+								</h:commandButton>
+
+							</td>
+							<!--</h:form>-->
+						</tr>
+					</ui:repeat>
+				</tbody>
+			</table>
+		</h:form>
+
 		<h:form>
 			<h:commandButton styleClass="button-primary" 
-				action="#{userDetails.startConversation()}" 
+				action="#{userDetailsController.startConversation()}"
 				value="Share Your Information">
 			</h:commandButton>		
 			
 			<h:commandButton styleClass="button-outline" 
-				action="#{userDetailsController.showInfo()}" 
+				action="#{userDetailsController.showInfo()}"
 				value="Review Your Information">
 			</h:commandButton>
 			

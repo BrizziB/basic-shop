@@ -93,7 +93,15 @@ public class UserService {
 			return Response.notAcceptable(null).build();
 		}
 	}
-	
+
+
+
+
+
+
+
+
+
 	/*                                    --- --- ---  
 	 * Da qui ci sono servizi per la conversazione, che usano RestUserConversationController
 	 * Forse si potrebbe fare una classe a parte, anche se alla fine sono tutti servizi inerenti lo User

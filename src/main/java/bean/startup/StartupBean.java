@@ -45,7 +45,7 @@ public class StartupBean {
 		userDao.save(user1);
 		userDao.save(user2);
 		productDao.save( createProduct(
-				"Duck", 
+				"a Duck",
 				"A very socially skilled duck", 
 				19.99)
 				);
@@ -60,8 +60,8 @@ public class StartupBean {
 				189.99)
 			);
 		productDao.save( createProduct(
-				"Good boi", 
-				"A very good boi, easily scared by nope ropes - unlimited borks included", 
+				"Socks (1 pair)",
+				"Try these in combination with our Shoes",
 				99.99)
 			);
 		productDao.save( createProduct(
@@ -75,6 +75,8 @@ public class StartupBean {
 		
 		orderDao.addOrder(order1);	
 		orderDao.addOrder(order2);
+
+		System.out.println(".. database initialized! ");
 		
 	}
 	

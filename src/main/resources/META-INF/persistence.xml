@@ -7,6 +7,10 @@
 
     <persistence-unit name="production">
 		<jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
+		<class>model.BaseEntity</class>
+		<class>model.Order</class>
+		<class>model.Product</class>
+		<class>model.User</class>
 
         <properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
@@ -21,5 +25,8 @@
             <property name="hibernate.id.new_generator_mappings" value="true" />
         </properties>
     </persistence-unit>
+    
+    
+    
 
 </persistence>

@@ -1,42 +1,61 @@
 package controller;
 
+import java.io.Serializable;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.ArrayList;
 
-import javax.enterprise.inject.Model;
+import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
+import bean.ShopStatusBean;
 import bean.UserSessionBean;
 import dao.OrderDao;
 import model.Order;
 import model.Product;
 
-@Model
-public class OrderController {
+//@Model // FIXME forse � meglio sostituire lo stereotipo con le singole annotazioni (+ chiaro)
+
+@Named
+@RequestScoped
+public class OrderController implements Serializable {
 	
 	@Inject
 	ProductListController productController;
 	
 	@Inject
 	private OrderDao orderDao;
-	
+
 	@Inject
 	private UserSessionBean loggedUser;
 
 	
+	
+	@Inject
+	private ShopStatusBean shopStatus;
+
+	
 	public List<Product> retrieveOrderProducts() {
 		ArrayList<Product> prods = new ArrayList<>();
-		prods.addAll(orderDao.retrieveOrderByUserID(loggedUser.getUserId()).getItems() );
+		prods.addAll(orderDao.retrieveOrderByUserId(loggedUser.getUserId()).getItems() );
 		System.out.println("retrieving Order of user: " + loggedUser.getUserId());
-		List<Product> products = prods;
-				
-		return products;
+
+		return prods;
+	}
+
+	public String completeOrder() {
+		Order currentOrder = orderDao.retrieveOrderByUserId(loggedUser.getUserId());
+		currentOrder.completeOrder();
+		orderDao.updateOrder(currentOrder);
+		shopStatus.getCompletedOrderList().add(currentOrder);
+		System.out.println("order completed successfully");
+		return "home";
+
 	}
 	
 	public boolean removeProductFromOrder(Long productID) {
 		System.out.println("Deleting product with id: " + productID);
-		Order currentOrder = orderDao.retrieveOrderByUserID(loggedUser.getUserId());
+		Order currentOrder = orderDao.retrieveOrderByUserId(loggedUser.getUserId());
 		List<Product> products = (List<Product>) currentOrder.getItems();
 		if(! products.isEmpty()) {
 			Product prod = products.stream().filter(product -> product.getId().equals(productID))
@@ -60,20 +79,15 @@ public class OrderController {
 				.orElse(null);
 		List<Product> products = retrieveOrderProducts();
 		products.add(prod);
-		Order currentOrder = orderDao.retrieveOrderByUserID(loggedUser.getUserId());
+		Order currentOrder = orderDao.retrieveOrderByUserId(loggedUser.getUserId());
 		currentOrder.setItems(products);
+		
 		orderDao.updateOrder(currentOrder);
+		
 		System.out.println("product " + prod.getProductName() + " added to your Order, current Order size: " + products.size());
 		return true;
 	}
 	
-	public String completeOrder() {
-		Order currentOrder = orderDao.retrieveOrderByUserID(loggedUser.getUserId());
-		currentOrder.completeOrder();
-		orderDao.updateOrder(currentOrder);
-		System.out.println("order completed successfully");
-		return "home";
-		
-	}
+
 
 }

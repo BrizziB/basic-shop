@@ -9,16 +9,16 @@
 			<h:form>
 				<fieldset>
 					<label for="country">What's your country?</label> 
-					<h:inputText id="country" value="#{userDetails.userData.country}"></h:inputText>
+					<h:inputText id="country" value="#{userDetailsController.userData.country}"></h:inputText>
 					<label for="city">The city where you live in</label> 
-					<h:inputText id="city" value="#{userDetails.userData.city}"></h:inputText>
+					<h:inputText id="city" value="#{userDetailsController.userData.city}"></h:inputText>
 					<label for="address">Your Address</label> 
-					<h:inputText id="address" value="#{userDetails.userData.address}"></h:inputText>
+					<h:inputText id="address" value="#{userDetailsController.userData.address}"></h:inputText>
 		 			<h:commandButton styleClass="button-outline" 
- 						action="#{userDetails.goToFirst()}" value="Back">
+ 						action="#{userDetailsController.goToFirst()}" value="Back">
  					</h:commandButton>
 		 			<h:commandButton styleClass="button-primary" 
- 						action="#{userDetails.saveGeoInfo()}" value="Next Page">
+ 						action="#{userDetailsController.saveGeoInfo()}" value="Next Page">
  					</h:commandButton>
 				</fieldset>
 			</h:form>

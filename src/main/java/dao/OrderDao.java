@@ -38,7 +38,7 @@ public class OrderDao {
 		}
 		return tmp;
 	}
-	
+
 	@Transactional
 	public void deleteOrders(){
 		try{
@@ -66,7 +66,7 @@ public class OrderDao {
 		return numDeleted;
 	}	
 	@Transactional
-	public Order retrieveOrderByUserID(long ID){
+	public Order retrieveOrderByUserId(long ID){
 		Order retrievedOrder = null;		
 		try{
 			TypedQuery<Order> query = em.createQuery(

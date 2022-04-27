@@ -9,16 +9,16 @@
 			<h:form>
 				<fieldset>
 					<label for="job">What's your job</label> 
-					<h:inputText id="job" value="#{userDetails.userData.job}"></h:inputText>
+					<h:inputText id="job" value="#{userDetailsController.userData.job}"></h:inputText>
 					<label for="hobby">Insert Your Main Hobby</label> 
-					<h:inputText id="hobby" value="#{userDetails.userData.mainHobby}"></h:inputText>
+					<h:inputText id="hobby" value="#{userDetailsController.userData.mainHobby}"></h:inputText>
 					<label for="show">What's your favorite TV Show?</label> 
-					<h:inputText id="show" value="#{userDetails.userData.favTvShow}"></h:inputText>
+					<h:inputText id="show" value="#{userDetailsController.userData.favTvShow}"></h:inputText>
 		 			<h:commandButton styleClass="button-outline" 
- 						action="#{userDetails.goToSecond()}" value="Back">
+ 						action="#{userDetailsController.goToSecond()}" value="Back">
  					</h:commandButton>
  					<h:commandButton styleClass="button-primary" 
- 						action="#{userDetails.saveFurtherInfoAndSave()}" value="Complete">
+ 						action="#{userDetailsController.saveFurtherInfoAndSave()}" value="Complete">
  					</h:commandButton>
 				</fieldset>
 			</h:form>

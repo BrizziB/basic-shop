@@ -30,6 +30,7 @@ public abstract class BaseEntity {
 		return id;
 	}
 
+
 	public String getUuid() {
 		return uuid;
 	}

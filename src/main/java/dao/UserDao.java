@@ -29,6 +29,14 @@ public class UserDao implements Serializable{
 		List<User> tmp = query.getResultList();
 		return tmp;
 	}
+	public User findUserByEmail(String eMail){
+		User result = em
+				.createQuery("from User "
+						+ "where email = :email ", User.class)
+				.setParameter("email", eMail).getSingleResult();
+
+		return result;
+	}
 	
 	public User findById(Long userId) {
 		return em.find(User.class, userId);
@@ -52,13 +60,13 @@ public class UserDao implements Serializable{
 		oldUser.mergeUser(newUser);
 	}
 	
-	public User login(User user) {
+	public User login(User userdata) {
 		List<User> result = em
 					.createQuery("from User "
 								+ "where email = :email "
 								+ "and password = :pass", User.class)
-					.setParameter("email", user.getEmail())
-					.setParameter("pass", user.getPassword())
+					.setParameter("email", userdata.getEmail())
+					.setParameter("pass", userdata.getPassword())
 					.setMaxResults(1)
 					.getResultList();
 		
