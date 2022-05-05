@@ -13,20 +13,18 @@ import javax.inject.Named;
 import dao.ProductDao;
 import model.Product;
 
-
 @Named
-@RequestScoped
 //@SessionScoped 
+@RequestScoped
 public class ProductListController implements Serializable {
 
 	private static final long serialVersionUID = 12345710L;
-	
+	 
 	@Inject
 	private ProductDao productDao;
 
 	@Inject
 	private OrderController orderController;
-
 	private List<Product> products;
 	private List<Long> justBoughtProducts;
 

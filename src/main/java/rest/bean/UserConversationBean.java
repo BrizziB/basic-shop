@@ -7,7 +7,7 @@ import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 
-import bean.UserSessionBean;
+import controller.UserSessionBean;
 import dao.UserDao;
 import model.ModelFactory;
 import model.User;
@@ -15,10 +15,10 @@ import model.User;
 @ConversationScoped
 public class UserConversationBean implements Serializable{
 	
-	// questa classe è il bean conversation scoped che mantiene
+	// questa classe ï¿½ il bean conversation scoped che mantiene
 	// lo stato durante la conversazione http col client remoto
 	// nella fase di inserimento dati sulle pagine info-form remote
-	// a livello logico è equivalente ad UserDetailsInsertionBean, 
+	// a livello logico ï¿½ equivalente ad UserDetailsInsertionBean, 
 	// il bean equivalente ma usato dalle pagine xhtml
 	
 	private static final long serialVersionUID = 39295900L;

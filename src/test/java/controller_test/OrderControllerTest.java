@@ -1,7 +1,7 @@
 package controller_test;
 
 
-import bean.UserSessionBean;
+import controller.UserSessionBean;
 import controller.OrderController;
 import dao.OrderDao;
 import model.ModelFactory;
@@ -62,7 +62,7 @@ public class OrderControllerTest {
 
     @Test
     public void testCompleteOrder(){
-        // un modo per testare questo può essere di aggiungere almeno un prodotto a fakeOrder
+        // un modo per testare questo puï¿½ essere di aggiungere almeno un prodotto a fakeOrder
         // e verificare che, chiamando il metodo completeOrder(), fakeOrder viene svuotato dal prodotto
     }
 }

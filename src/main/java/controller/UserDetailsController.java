@@ -5,7 +5,7 @@ import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import bean.UserSessionBean;
+import controller.UserSessionBean;
 import dao.UserDao;
 import model.User;
 import java.io.Serializable;
@@ -15,31 +15,15 @@ import java.util.UUID;
 @Named
 @ConversationScoped
 public class UserDetailsController implements Serializable {
-	private static final long serialVersionUID = 82485710L;
-	private final static UUID uuid = UUID.randomUUID();
-
-	@Inject
-	private Conversation conversation;
-
-	@Inject
-	private UserSessionBean userSession;
-	
-	@Inject 
-	private UserDao userDao;
-
 	private User userData;
+	@Inject	private Conversation conversation;
+
+	@Inject	private UserSessionBean userSession;
 	
-
-	public Conversation getConversation() {
-		return conversation;
-	}
-
 	public String startConversation() {
 		if (conversation.isTransient()) {
 			conversation.begin();
-			System.out.println("conversazione iniziata");
 			userData = userDao.findById(userSession.getUserId());
-			System.out.println("conversation started with: " + getID());
 		}
 		return "details-form-first?faces-redirect=true";
 	}
@@ -49,6 +33,23 @@ public class UserDetailsController implements Serializable {
 			conversation.end();
 		}
 	}
+	
+	
+	
+	
+	@Inject 
+	private UserDao userDao;
+
+	
+	private static final long serialVersionUID = 82485710L;
+	private final static UUID uuid = UUID.randomUUID();
+
+
+	public Conversation getConversation() {
+		return conversation;
+	}
+
+	
 
 	public String getID() {
 		return uuid.toString();

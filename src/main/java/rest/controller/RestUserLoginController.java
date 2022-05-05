@@ -3,7 +3,7 @@ package rest.controller;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
 
-import bean.UserSessionBean;
+import controller.UserSessionBean;
 import dao.UserDao;
 import model.ModelFactory;
 import model.User;

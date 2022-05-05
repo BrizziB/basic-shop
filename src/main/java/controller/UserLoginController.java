@@ -5,7 +5,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import bean.ShopStatusBean;
-import bean.UserSessionBean;
 import dao.UserDao;
 import model.ModelFactory;
 import model.User;
@@ -14,22 +13,13 @@ import model.User;
 @RequestScoped
 public class UserLoginController {
 
-	@Inject
-	private UserSessionBean userSession;
-
-	@Inject
-	private UserDao userDao;
-
-	@Inject
-	private ShopStatusBean shopStatus;
-
 	private User userData;
-
-	public UserLoginController() {
-		userData = ModelFactory.initializeUser();
-	}
-
+	@Inject	private UserSessionBean userSession;
+	
 	public String login() {
+		//if userData.username and userData.password OK
+		//init userSession and return "home"
+		
 		User loggedUser = userDao.login(userData);
 		if (loggedUser == null) {
 			throw new RuntimeException("...");
@@ -38,7 +28,28 @@ public class UserLoginController {
 		shopStatus.getActiveUsers().add(loggedUser);
 		return "home";
 	}
+	
+	
+	
+	
+	@Inject
+	private UserDao userDao;
+	@Inject
+	private ShopStatusBean shopStatus;
+	
+	//... 
+	public User getUserData() {
+		return userData;
+	}
+	// ...
 
+	public UserLoginController() {
+		userData = ModelFactory.initializeUser();
+	}
+
+	
+// ...
+	
 	public String logout() {
 		User loggingOutUser = userDao.findById(userSession.getUserId());
 		shopStatus.getActiveUsers().remove(loggingOutUser);
@@ -46,9 +57,7 @@ public class UserLoginController {
 		return "home";
 	}
 
-	public User getUserData() {
-		return userData;
-	}
+
 	public void setUserData(User userData) {
 		this.userData = userData;
 	}

@@ -9,12 +9,12 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import bean.ShopStatusBean;
-import bean.UserSessionBean;
+import controller.UserSessionBean;
 import dao.OrderDao;
 import model.Order;
 import model.Product;
 
-//@Model // FIXME forse � meglio sostituire lo stereotipo con le singole annotazioni (+ chiaro)
+//@Model // meglio sostituire lo stereotipo con le singole annotazioni (+ chiaro)
 
 @Named
 @RequestScoped

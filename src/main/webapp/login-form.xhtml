@@ -1,23 +1,22 @@
 <h:panelGroup xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html">
 	<h2>Login</h2>
-	<!--<h:form id="input-form">-->
 		<fieldset>
+			
+				<label for="email">E-Mail</label>
+				<h:inputText id="email"
+							 value="#{userLoginController.userData.email}">
+				</h:inputText>
+				<!--<h:form>-->
+				<label for="password">Password</label>
+				<h:inputSecret id="password"
+							   value="#{userLoginController.userData.password}">
+				</h:inputSecret>
 			<h:form>
-			<label for="email">E-Mail</label>
-			<h:inputText id="email"
-						 value="#{userLoginController.userData.email}">
-			</h:inputText>
-			<!--<h:form>-->
-			<label for="password">Password</label>
-			<h:inputSecret id="password"
-						   value="#{userLoginController.userData.password}">
-			</h:inputSecret>
-		<!--<h:form>-->
-			<h:commandButton styleClass="button-primary"
- 				action="#{userLoginController.login()}" value="Login">
-			</h:commandButton>
-		</h:form>
+				<h:commandButton styleClass="button-primary"
+	 				action="#{userLoginController.login()}" value="Login">
+				</h:commandButton>
+			</h:form>
  		</fieldset>
 	<!--</h:form>-->
 </h:panelGroup>

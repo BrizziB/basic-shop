@@ -8,6 +8,7 @@ import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import controller.UserSessionBean;
 import dao.UserDao;
 import model.ModelFactory;
 import model.User;

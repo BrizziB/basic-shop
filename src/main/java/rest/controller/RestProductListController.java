@@ -4,12 +4,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import bean.UserSessionBean;
+import controller.UserSessionBean;
 import dao.ProductDao;
 import dao.UserDao;
 import model.Product;
 
-public class RestProductListController { // è identico a ProductListController
+public class RestProductListController { // ï¿½ identico a ProductListController
 	
 	@Inject
 	private ProductDao productDao;

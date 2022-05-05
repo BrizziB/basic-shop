@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import bean.UserSessionBean;
+import controller.UserSessionBean;
 import controller.ProductListController;
 import dao.OrderDao;
 import model.Order;
