@@ -1,14 +1,12 @@
 package controller_test;
 
 
-import controller.UserSessionBean;
 import controller.OrderController;
 import dao.OrderDao;
 import model.ModelFactory;
 import model.Order;
 import model.Product;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

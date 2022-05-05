@@ -1,6 +1,5 @@
 package controller;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -8,8 +7,7 @@ import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import bean.ShopStatusBean;
-import controller.UserSessionBean;
+
 import dao.OrderDao;
 import model.Order;
 import model.Product;
@@ -18,8 +16,9 @@ import model.Product;
 
 @Named
 @RequestScoped
-public class OrderController implements Serializable {
+public class OrderController{
 	
+
 	@Inject
 	ProductListController productController;
 	

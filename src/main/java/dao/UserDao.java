@@ -9,7 +9,6 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
-import model.Order;
 import model.User;
 
 public class UserDao implements Serializable{

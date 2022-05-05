@@ -9,7 +9,6 @@ import javax.inject.Inject;
 
 import controller.UserSessionBean;
 import dao.UserDao;
-import model.ModelFactory;
 import model.User;
 
 @ConversationScoped

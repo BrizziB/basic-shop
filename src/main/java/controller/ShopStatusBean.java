@@ -1,4 +1,4 @@
-package bean;
+package controller;
 
 import model.Order;
 import model.User;

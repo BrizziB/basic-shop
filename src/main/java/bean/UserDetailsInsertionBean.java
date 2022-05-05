@@ -10,7 +10,6 @@ import javax.inject.Named;
 
 import controller.UserSessionBean;
 import dao.UserDao;
-import model.ModelFactory;
 import model.User;
 
 @ConversationScoped

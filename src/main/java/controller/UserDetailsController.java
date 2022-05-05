@@ -5,7 +5,6 @@ import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import controller.UserSessionBean;
 import dao.UserDao;
 import model.User;
 import java.io.Serializable;
