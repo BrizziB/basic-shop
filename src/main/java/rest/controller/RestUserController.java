@@ -2,7 +2,7 @@ package rest.controller;
 
 import javax.inject.Inject;
 
-import controller.UserSessionBean;
+import beans.UserSessionBean;
 import dao.UserDao;
 import model.User;
 

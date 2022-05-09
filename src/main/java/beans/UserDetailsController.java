@@ -1,4 +1,4 @@
-package controller;
+package beans;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
@@ -51,7 +51,7 @@ public class UserDetailsController implements Serializable {
 	
 
 	public String getID() {
-		return uuid.toString();
+		return conversation.getId().toString();
 	}
 
 	public User getUserData() {
@@ -63,16 +63,17 @@ public class UserDetailsController implements Serializable {
 	}
 
 
-	public String savePersonalInfo() {
+	public String goToGeographicalInfo() {
+		System.out.println("conversation is up with: " + getID());
 		return "details-form-second?faces-redirect=true";
 	}
 
-	public String saveGeoInfo() {
+	public String goToFurtherInfo() {
 		System.out.println("conversation is up with: " + getID());
 		return "details-form-third?faces-redirect=true";
 	}
 
-	public String saveFurtherInfoAndSave() {
+	public String goHomeAndSave() {
 		System.out.println("closing conversation with: " + getID());
 		userDao.updateUser(userSession.getUserId(), userData);
 		endConversation();

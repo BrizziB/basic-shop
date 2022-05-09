@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import controller.UserSessionBean;
-import controller.ProductListController;
+import beans.UserSessionBean;
+import beans.ProductListController;
 import dao.OrderDao;
 import model.Order;
 import model.Product;

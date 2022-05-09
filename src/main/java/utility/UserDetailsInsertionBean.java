@@ -1,4 +1,4 @@
-package bean;
+package utility;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -8,7 +8,7 @@ import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import controller.UserSessionBean;
+import beans.UserSessionBean;
 import dao.UserDao;
 import model.User;
 

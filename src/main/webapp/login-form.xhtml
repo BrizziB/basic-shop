@@ -2,7 +2,7 @@
 	xmlns:h="http://java.sun.com/jsf/html">
 	<h2>Login</h2>
 		<fieldset>
-			
+			<h:form>
 				<label for="email">E-Mail</label>
 				<h:inputText id="email"
 							 value="#{userLoginController.userData.email}">
@@ -12,7 +12,7 @@
 				<h:inputSecret id="password"
 							   value="#{userLoginController.userData.password}">
 				</h:inputSecret>
-			<h:form>
+			
 				<h:commandButton styleClass="button-primary"
 	 				action="#{userLoginController.login()}" value="Login">
 				</h:commandButton>

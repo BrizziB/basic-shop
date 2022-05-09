@@ -1,4 +1,4 @@
-package controller;
+package beans;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -15,10 +15,7 @@ public class UserLoginController {
 	private User userData;
 	@Inject	private UserSessionBean userSession;
 	
-	public String login() {
-		//if userData.username and userData.password OK
-		//init userSession and return "home"
-		
+	public String login() {	
 		User loggedUser = userDao.login(userData);
 		if (loggedUser == null) {
 			throw new RuntimeException("...");
@@ -27,9 +24,6 @@ public class UserLoginController {
 		shopStatus.getActiveUsers().add(loggedUser);
 		return "home";
 	}
-	
-	
-	
 	
 	@Inject
 	private UserDao userDao;

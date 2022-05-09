@@ -1,7 +1,7 @@
 package controller_test;
 
 
-import controller.OrderController;
+import beans.OrderController;
 import dao.OrderDao;
 import model.ModelFactory;
 import model.Order;
